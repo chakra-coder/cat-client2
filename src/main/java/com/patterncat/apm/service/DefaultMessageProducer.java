@@ -65,6 +65,13 @@ public class DefaultMessageProducer implements MessageProducer {
     }
 
     @Override
+    public void logError(String message) {
+        if (Cat.getManager().isCatEnabled()) {
+            logEvent("Error","error without exception", "ERROR", message);
+        }
+    }
+
+    @Override
     public void logEvent(String type, String name) {
         logEvent(type, name, Message.SUCCESS, null);
     }

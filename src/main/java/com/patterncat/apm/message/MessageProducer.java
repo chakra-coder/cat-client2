@@ -138,6 +138,8 @@ public interface MessageProducer {
      */
     public void logError(Throwable cause);
 
+    public void logError(String message);
+
     /**
      * Log an error.
      *

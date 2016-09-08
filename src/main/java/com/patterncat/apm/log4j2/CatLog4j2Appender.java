@@ -12,6 +12,7 @@ import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 import org.apache.logging.log4j.core.layout.PatternLayout;
+import org.springframework.util.StringUtils;
 
 import java.io.PrintWriter;
 import java.io.Serializable;
@@ -46,6 +47,11 @@ public class CatLog4j2Appender extends AbstractAppender {
                 Cat.logError(String.valueOf(message), exception);
             } else {
                 Cat.logError(exception);
+            }
+        }else{
+            Object msg = event.getMessage();
+            if(!StringUtils.isEmpty(msg)){
+                Cat.getProducer().logError(msg.toString());
             }
         }
     }

@@ -49,7 +49,7 @@ public class Cat {
         return ApplicationContextHolder.getContext().getBean(DefaultMessageProducer.class);
     }
 
-    static void log(String severity, String message) {
+    public static void log(String severity, String message) {
         MessageFormat format = new MessageFormat("[{0,date,MM-dd HH:mm:ss.sss}] [{1}] [{2}] {3}");
 
         System.out.println(format.format(new Object[]{new Date(), severity, "cat", message}));
