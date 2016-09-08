@@ -396,20 +396,16 @@ public class Threads {
         /**
          * Triggered when a thread pool (ExecutorService) has been created.
          *
-         * @param pool
-         *           thread pool
-         * @param pattern
-         *           thread pool name pattern
+         * @param pool    thread pool
+         * @param pattern thread pool name pattern
          */
         public void onThreadPoolCreated(ExecutorService pool, String pattern);
 
         /**
          * Triggered when a thread is starting.
          *
-         * @param thread
-         *           thread which is starting
-         * @param name
-         *           thread name
+         * @param thread thread which is starting
+         * @param name   thread name
          */
         public void onThreadStarting(Thread thread, String name);
 
@@ -418,10 +414,8 @@ public class Threads {
         /**
          * Triggered when an uncaught exception thrown from within a thread.
          *
-         * @param thread
-         *           thread which has an uncaught exception thrown
-         * @param e
-         *           the exception uncaught
+         * @param thread thread which has an uncaught exception thrown
+         * @param e      the exception uncaught
          * @return true means the exception is handled, it will be not handled again other listeners, false otherwise.
          */
         public boolean onUncaughtException(Thread thread, Throwable e);

@@ -3,128 +3,130 @@ package com.patterncat.apm.status.model.entity;
 
 import com.patterncat.apm.status.model.BaseEntity;
 import com.patterncat.apm.status.model.IVisitor;
-import static com.patterncat.apm.status.model.Constants.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static com.patterncat.apm.status.model.Constants.ATTR_ID;
+import static com.patterncat.apm.status.model.Constants.ENTITY_EXTENSION;
+
 public class Extension extends BaseEntity<Extension> {
-   private String m_id;
+    private String m_id;
 
-   private String m_description;
+    private String m_description;
 
-   private Map<String, ExtensionDetail> m_details = new LinkedHashMap<String, ExtensionDetail>();
+    private Map<String, ExtensionDetail> m_details = new LinkedHashMap<String, ExtensionDetail>();
 
-   private Map<String, String> m_dynamicAttributes = new LinkedHashMap<String, String>();
+    private Map<String, String> m_dynamicAttributes = new LinkedHashMap<String, String>();
 
-   public Extension() {
-   }
+    public Extension() {
+    }
 
-   public Extension(String id) {
-      m_id = id;
-   }
+    public Extension(String id) {
+        m_id = id;
+    }
 
-   @Override
-   public void accept(IVisitor visitor) {
-      visitor.visitExtension(this);
-   }
+    @Override
+    public void accept(IVisitor visitor) {
+        visitor.visitExtension(this);
+    }
 
-   public Extension addExtensionDetail(ExtensionDetail extensionDetail) {
-      m_details.put(extensionDetail.getId(), extensionDetail);
-      return this;
-   }
+    public Extension addExtensionDetail(ExtensionDetail extensionDetail) {
+        m_details.put(extensionDetail.getId(), extensionDetail);
+        return this;
+    }
 
-   @Override
-   public boolean equals(Object obj) {
-      if (obj instanceof Extension) {
-         Extension _o = (Extension) obj;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Extension) {
+            Extension _o = (Extension) obj;
 
-         if (!equals(m_id, _o.getId())) {
-            return false;
-         }
-
-         return true;
-      }
-
-      return false;
-   }
-
-   public ExtensionDetail findExtensionDetail(String id) {
-      return m_details.get(id);
-   }
-
-   public ExtensionDetail findOrCreateExtensionDetail(String id) {
-      ExtensionDetail extensionDetail = m_details.get(id);
-
-      if (extensionDetail == null) {
-         synchronized (m_details) {
-            extensionDetail = m_details.get(id);
-
-            if (extensionDetail == null) {
-               extensionDetail = new ExtensionDetail(id);
-               m_details.put(id, extensionDetail);
+            if (!equals(m_id, _o.getId())) {
+                return false;
             }
-         }
-      }
 
-      return extensionDetail;
-   }
+            return true;
+        }
 
-   public String getDynamicAttribute(String name) {
-      return m_dynamicAttributes.get(name);
-   }
+        return false;
+    }
 
-   public Map<String, String> getDynamicAttributes() {
-      return m_dynamicAttributes;
-   }
+    public ExtensionDetail findExtensionDetail(String id) {
+        return m_details.get(id);
+    }
 
-   public String getDescription() {
-      return m_description;
-   }
+    public ExtensionDetail findOrCreateExtensionDetail(String id) {
+        ExtensionDetail extensionDetail = m_details.get(id);
 
-   public Map<String, ExtensionDetail> getDetails() {
-      return m_details;
-   }
+        if (extensionDetail == null) {
+            synchronized (m_details) {
+                extensionDetail = m_details.get(id);
 
-   public String getId() {
-      return m_id;
-   }
+                if (extensionDetail == null) {
+                    extensionDetail = new ExtensionDetail(id);
+                    m_details.put(id, extensionDetail);
+                }
+            }
+        }
 
-   @Override
-   public int hashCode() {
-      int hash = 0;
+        return extensionDetail;
+    }
 
-      hash = hash * 31 + (m_id == null ? 0 : m_id.hashCode());
+    public String getDynamicAttribute(String name) {
+        return m_dynamicAttributes.get(name);
+    }
 
-      return hash;
-   }
+    public Map<String, String> getDynamicAttributes() {
+        return m_dynamicAttributes;
+    }
 
-   @Override
-   public void mergeAttributes(Extension other) {
-      assertAttributeEquals(other, ENTITY_EXTENSION, ATTR_ID, m_id, other.getId());
+    public String getDescription() {
+        return m_description;
+    }
 
-      for (Map.Entry<String, String> e : other.getDynamicAttributes().entrySet()) {
-         m_dynamicAttributes.put(e.getKey(), e.getValue());
-      }
+    public Map<String, ExtensionDetail> getDetails() {
+        return m_details;
+    }
 
-   }
+    public String getId() {
+        return m_id;
+    }
 
-   public ExtensionDetail removeExtensionDetail(String id) {
-      return m_details.remove(id);
-   }
+    @Override
+    public int hashCode() {
+        int hash = 0;
 
-   public void setDynamicAttribute(String name, String value) {
-      m_dynamicAttributes.put(name, value);
-   }
+        hash = hash * 31 + (m_id == null ? 0 : m_id.hashCode());
 
-   public Extension setDescription(String description) {
-      m_description = description;
-      return this;
-   }
+        return hash;
+    }
 
-   public Extension setId(String id) {
-      m_id = id;
-      return this;
-   }
+    @Override
+    public void mergeAttributes(Extension other) {
+        assertAttributeEquals(other, ENTITY_EXTENSION, ATTR_ID, m_id, other.getId());
+
+        for (Map.Entry<String, String> e : other.getDynamicAttributes().entrySet()) {
+            m_dynamicAttributes.put(e.getKey(), e.getValue());
+        }
+
+    }
+
+    public ExtensionDetail removeExtensionDetail(String id) {
+        return m_details.remove(id);
+    }
+
+    public void setDynamicAttribute(String name, String value) {
+        m_dynamicAttributes.put(name, value);
+    }
+
+    public Extension setDescription(String description) {
+        m_description = description;
+        return this;
+    }
+
+    public Extension setId(String id) {
+        m_id = id;
+        return this;
+    }
 
 }

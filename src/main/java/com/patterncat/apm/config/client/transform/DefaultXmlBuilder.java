@@ -9,236 +9,236 @@ import static com.patterncat.apm.config.client.Constants.*;
 
 public class DefaultXmlBuilder implements IVisitor {
 
-   private IVisitor m_visitor = this;
+    private IVisitor m_visitor = this;
 
-   private int m_level;
+    private int m_level;
 
-   private StringBuilder m_sb;
+    private StringBuilder m_sb;
 
-   private boolean m_compact;
+    private boolean m_compact;
 
-   public DefaultXmlBuilder() {
-      this(false);
-   }
+    public DefaultXmlBuilder() {
+        this(false);
+    }
 
-   public DefaultXmlBuilder(boolean compact) {
-      this(compact, new StringBuilder(4096));
-   }
+    public DefaultXmlBuilder(boolean compact) {
+        this(compact, new StringBuilder(4096));
+    }
 
-   public DefaultXmlBuilder(boolean compact, StringBuilder sb) {
-      m_compact = compact;
-      m_sb = sb;
-      m_sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n");
-   }
+    public DefaultXmlBuilder(boolean compact, StringBuilder sb) {
+        m_compact = compact;
+        m_sb = sb;
+        m_sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n");
+    }
 
-   public String buildXml(IEntity<?> entity) {
-      entity.accept(m_visitor);
-      return m_sb.toString();
-   }
+    public String buildXml(IEntity<?> entity) {
+        entity.accept(m_visitor);
+        return m_sb.toString();
+    }
 
-   protected void endTag(String name) {
-      m_level--;
+    protected void endTag(String name) {
+        m_level--;
 
-      indent();
-      m_sb.append("</").append(name).append(">\r\n");
-   }
+        indent();
+        m_sb.append("</").append(name).append(">\r\n");
+    }
 
-   protected String escape(Object value) {
-      return escape(value, false);
-   }
-   
-   protected String escape(Object value, boolean text) {
-      if (value == null) {
-         return null;
-      }
+    protected String escape(Object value) {
+        return escape(value, false);
+    }
 
-      String str = value.toString();
-      int len = str.length();
-      StringBuilder sb = new StringBuilder(len + 16);
+    protected String escape(Object value, boolean text) {
+        if (value == null) {
+            return null;
+        }
 
-      for (int i = 0; i < len; i++) {
-         final char ch = str.charAt(i);
+        String str = value.toString();
+        int len = str.length();
+        StringBuilder sb = new StringBuilder(len + 16);
 
-         switch (ch) {
-         case '<':
-            sb.append("&lt;");
-            break;
-         case '>':
-            sb.append("&gt;");
-            break;
-         case '&':
-            sb.append("&amp;");
-            break;
-         case '"':
-            if (!text) {
-               sb.append("&quot;");
-               break;
+        for (int i = 0; i < len; i++) {
+            final char ch = str.charAt(i);
+
+            switch (ch) {
+                case '<':
+                    sb.append("&lt;");
+                    break;
+                case '>':
+                    sb.append("&gt;");
+                    break;
+                case '&':
+                    sb.append("&amp;");
+                    break;
+                case '"':
+                    if (!text) {
+                        sb.append("&quot;");
+                        break;
+                    }
+                default:
+                    sb.append(ch);
+                    break;
             }
-         default:
-            sb.append(ch);
-            break;
-         }
-      }
+        }
 
-      return sb.toString();
-   }
-   
-   protected void indent() {
-      if (!m_compact) {
-         for (int i = m_level - 1; i >= 0; i--) {
-            m_sb.append("   ");
-         }
-      }
-   }
+        return sb.toString();
+    }
 
-   protected void startTag(String name) {
-      startTag(name, false, null);
-   }
-   
-   protected void startTag(String name, boolean closed, java.util.Map<String, String> dynamicAttributes, Object... nameValues) {
-      startTag(name, null, closed, dynamicAttributes, nameValues);
-   }
+    protected void indent() {
+        if (!m_compact) {
+            for (int i = m_level - 1; i >= 0; i--) {
+                m_sb.append("   ");
+            }
+        }
+    }
 
-   protected void startTag(String name, java.util.Map<String, String> dynamicAttributes, Object... nameValues) {
-      startTag(name, null, false, dynamicAttributes, nameValues);
-   }
+    protected void startTag(String name) {
+        startTag(name, false, null);
+    }
 
-   protected void startTag(String name, Object text, boolean closed, java.util.Map<String, String> dynamicAttributes, Object... nameValues) {
-      indent();
+    protected void startTag(String name, boolean closed, java.util.Map<String, String> dynamicAttributes, Object... nameValues) {
+        startTag(name, null, closed, dynamicAttributes, nameValues);
+    }
 
-      m_sb.append('<').append(name);
+    protected void startTag(String name, java.util.Map<String, String> dynamicAttributes, Object... nameValues) {
+        startTag(name, null, false, dynamicAttributes, nameValues);
+    }
 
-      int len = nameValues.length;
+    protected void startTag(String name, Object text, boolean closed, java.util.Map<String, String> dynamicAttributes, Object... nameValues) {
+        indent();
 
-      for (int i = 0; i + 1 < len; i += 2) {
-         Object attrName = nameValues[i];
-         Object attrValue = nameValues[i + 1];
+        m_sb.append('<').append(name);
 
-         if (attrValue != null) {
-            m_sb.append(' ').append(attrName).append("=\"").append(escape(attrValue)).append('"');
-         }
-      }
+        int len = nameValues.length;
 
-      if (dynamicAttributes != null) {
-         for (java.util.Map.Entry<String, String> e : dynamicAttributes.entrySet()) {
-            m_sb.append(' ').append(e.getKey()).append("=\"").append(escape(e.getValue())).append('"');
-         }
-      }
+        for (int i = 0; i + 1 < len; i += 2) {
+            Object attrName = nameValues[i];
+            Object attrValue = nameValues[i + 1];
 
-      if (text != null && closed) {
-         m_sb.append('>');
-         m_sb.append(escape(text, true));
-         m_sb.append("</").append(name).append(">\r\n");
-      } else {
-         if (closed) {
-            m_sb.append('/');
-         } else {
-            m_level++;
-         }
-   
-         m_sb.append(">\r\n");
-      }
-   }
+            if (attrValue != null) {
+                m_sb.append(' ').append(attrName).append("=\"").append(escape(attrValue)).append('"');
+            }
+        }
 
-   protected void tagWithText(String name, String text, Object... nameValues) {
-      if (text == null) {
-         return;
-      }
-      
-      indent();
+        if (dynamicAttributes != null) {
+            for (java.util.Map.Entry<String, String> e : dynamicAttributes.entrySet()) {
+                m_sb.append(' ').append(e.getKey()).append("=\"").append(escape(e.getValue())).append('"');
+            }
+        }
 
-      m_sb.append('<').append(name);
+        if (text != null && closed) {
+            m_sb.append('>');
+            m_sb.append(escape(text, true));
+            m_sb.append("</").append(name).append(">\r\n");
+        } else {
+            if (closed) {
+                m_sb.append('/');
+            } else {
+                m_level++;
+            }
 
-      int len = nameValues.length;
+            m_sb.append(">\r\n");
+        }
+    }
 
-      for (int i = 0; i + 1 < len; i += 2) {
-         Object attrName = nameValues[i];
-         Object attrValue = nameValues[i + 1];
+    protected void tagWithText(String name, String text, Object... nameValues) {
+        if (text == null) {
+            return;
+        }
 
-         if (attrValue != null) {
-            m_sb.append(' ').append(attrName).append("=\"").append(escape(attrValue)).append('"');
-         }
-      }
+        indent();
 
-      m_sb.append(">");
-      m_sb.append(escape(text, true));
-      m_sb.append("</").append(name).append(">\r\n");
-   }
+        m_sb.append('<').append(name);
 
-   protected void element(String name, String text, boolean escape) {
-      if (text == null) {
-         return;
-      }
-      
-      indent();
-      
-      m_sb.append('<').append(name).append(">");
-      
-      if (escape) {
-         m_sb.append(escape(text, true));
-      } else {
-         m_sb.append("<![CDATA[").append(text).append("]]>");
-      }
-      
-      m_sb.append("</").append(name).append(">\r\n");
-   }
+        int len = nameValues.length;
 
-   @Override
-   public void visitBind(Bind bind) {
-      startTag(ENTITY_BIND, true, null, ATTR_IP, bind.getIp(), ATTR_PORT, bind.getPort());
-   }
+        for (int i = 0; i + 1 < len; i += 2) {
+            Object attrName = nameValues[i];
+            Object attrValue = nameValues[i + 1];
 
-   @Override
-   public void visitConfig(ClientConfig config) {
-      startTag(ENTITY_CONFIG, config.getDynamicAttributes(), ATTR_MODE, config.getMode(), ATTR_ENABLED, config.getEnabled(), ATTR_DUMP_LOCKED, config.getDumpLocked());
+            if (attrValue != null) {
+                m_sb.append(' ').append(attrName).append("=\"").append(escape(attrValue)).append('"');
+            }
+        }
 
-      element(ELEMENT_BASE_LOG_DIR, config.getBaseLogDir(), true);
+        m_sb.append(">");
+        m_sb.append(escape(text, true));
+        m_sb.append("</").append(name).append(">\r\n");
+    }
 
-      if (!config.getServers().isEmpty()) {
-         startTag(ENTITY_SERVERS);
+    protected void element(String name, String text, boolean escape) {
+        if (text == null) {
+            return;
+        }
 
-         for (Server server : config.getServers().toArray(new Server[0])) {
-            server.accept(m_visitor);
-         }
+        indent();
 
-         endTag(ENTITY_SERVERS);
-      }
+        m_sb.append('<').append(name).append(">");
 
-      if (!config.getDomains().isEmpty()) {
-         for (Domain domain : config.getDomains().values().toArray(new Domain[0])) {
-            domain.accept(m_visitor);
-         }
-      }
+        if (escape) {
+            m_sb.append(escape(text, true));
+        } else {
+            m_sb.append("<![CDATA[").append(text).append("]]>");
+        }
 
-      if (config.getBind() != null) {
-         config.getBind().accept(m_visitor);
-      }
+        m_sb.append("</").append(name).append(">\r\n");
+    }
 
-      if (!config.getProperties().isEmpty()) {
-         startTag(ENTITY_PROPERTIES);
+    @Override
+    public void visitBind(Bind bind) {
+        startTag(ENTITY_BIND, true, null, ATTR_IP, bind.getIp(), ATTR_PORT, bind.getPort());
+    }
 
-         for (Property property : config.getProperties().values().toArray(new Property[0])) {
-            property.accept(m_visitor);
-         }
+    @Override
+    public void visitConfig(ClientConfig config) {
+        startTag(ENTITY_CONFIG, config.getDynamicAttributes(), ATTR_MODE, config.getMode(), ATTR_ENABLED, config.getEnabled(), ATTR_DUMP_LOCKED, config.getDumpLocked());
 
-         endTag(ENTITY_PROPERTIES);
-      }
+        element(ELEMENT_BASE_LOG_DIR, config.getBaseLogDir(), true);
 
-      endTag(ENTITY_CONFIG);
-   }
+        if (!config.getServers().isEmpty()) {
+            startTag(ENTITY_SERVERS);
 
-   @Override
-   public void visitDomain(Domain domain) {
-      startTag(ENTITY_DOMAIN, true, null, ATTR_ID, domain.getId(), ATTR_IP, domain.getIp(), ATTR_ENABLED, domain.getEnabled(), ATTR_MAX_MESSAGE_SIZE, domain.getMaxMessageSize());
-   }
+            for (Server server : config.getServers().toArray(new Server[0])) {
+                server.accept(m_visitor);
+            }
 
-   @Override
-   public void visitProperty(Property property) {
-      startTag(ENTITY_PROPERTY, property.getText(), true, null, ATTR_NAME, property.getName());
-   }
+            endTag(ENTITY_SERVERS);
+        }
 
-   @Override
-   public void visitServer(Server server) {
-      startTag(ENTITY_SERVER, true, null, ATTR_IP, server.getIp(), ATTR_PORT, server.getPort(), ATTR_HTTP_PORT, server.getHttpPort(), ATTR_ENABLED, server.getEnabled());
-   }
+        if (!config.getDomains().isEmpty()) {
+            for (Domain domain : config.getDomains().values().toArray(new Domain[0])) {
+                domain.accept(m_visitor);
+            }
+        }
+
+        if (config.getBind() != null) {
+            config.getBind().accept(m_visitor);
+        }
+
+        if (!config.getProperties().isEmpty()) {
+            startTag(ENTITY_PROPERTIES);
+
+            for (Property property : config.getProperties().values().toArray(new Property[0])) {
+                property.accept(m_visitor);
+            }
+
+            endTag(ENTITY_PROPERTIES);
+        }
+
+        endTag(ENTITY_CONFIG);
+    }
+
+    @Override
+    public void visitDomain(Domain domain) {
+        startTag(ENTITY_DOMAIN, true, null, ATTR_ID, domain.getId(), ATTR_IP, domain.getIp(), ATTR_ENABLED, domain.getEnabled(), ATTR_MAX_MESSAGE_SIZE, domain.getMaxMessageSize());
+    }
+
+    @Override
+    public void visitProperty(Property property) {
+        startTag(ENTITY_PROPERTY, property.getText(), true, null, ATTR_NAME, property.getName());
+    }
+
+    @Override
+    public void visitServer(Server server) {
+        startTag(ENTITY_SERVER, true, null, ATTR_IP, server.getIp(), ATTR_PORT, server.getPort(), ATTR_HTTP_PORT, server.getHttpPort(), ATTR_ENABLED, server.getEnabled());
+    }
 }

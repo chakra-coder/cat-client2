@@ -10,109 +10,109 @@ import static com.patterncat.apm.config.client.Constants.*;
 
 public class DefaultValidator implements IVisitor {
 
-   private Path m_path = new Path();
-   
-   protected void assertRequired(String name, Object value) {
-      if (value == null) {
-         throw new RuntimeException(String.format("%s at path(%s) is required!", name, m_path));
-      }
-   }
+    private Path m_path = new Path();
 
-   @Override
-   public void visitBind(Bind bind) {
-   }
+    protected void assertRequired(String name, Object value) {
+        if (value == null) {
+            throw new RuntimeException(String.format("%s at path(%s) is required!", name, m_path));
+        }
+    }
 
-   @Override
-   public void visitConfig(ClientConfig config) {
-      m_path.down(ENTITY_CONFIG);
+    @Override
+    public void visitBind(Bind bind) {
+    }
 
-      assertRequired(ATTR_MODE, config.getMode());
+    @Override
+    public void visitConfig(ClientConfig config) {
+        m_path.down(ENTITY_CONFIG);
 
-      visitConfigChildren(config);
+        assertRequired(ATTR_MODE, config.getMode());
 
-      m_path.up(ENTITY_CONFIG);
-   }
+        visitConfigChildren(config);
 
-   protected void visitConfigChildren(ClientConfig config) {
-      m_path.down(ENTITY_SERVERS);
+        m_path.up(ENTITY_CONFIG);
+    }
 
-      for (Server server : config.getServers()) {
-         visitServer(server);
-      }
+    protected void visitConfigChildren(ClientConfig config) {
+        m_path.down(ENTITY_SERVERS);
 
-      m_path.up(ENTITY_SERVERS);
+        for (Server server : config.getServers()) {
+            visitServer(server);
+        }
 
-      for (Domain domain : config.getDomains().values()) {
-         visitDomain(domain);
-      }
+        m_path.up(ENTITY_SERVERS);
 
-      if (config.getBind() != null) {
-         visitBind(config.getBind());
-      }
+        for (Domain domain : config.getDomains().values()) {
+            visitDomain(domain);
+        }
 
-      m_path.down(ENTITY_PROPERTIES);
+        if (config.getBind() != null) {
+            visitBind(config.getBind());
+        }
 
-      for (Property property : config.getProperties().values()) {
-         visitProperty(property);
-      }
+        m_path.down(ENTITY_PROPERTIES);
 
-      m_path.up(ENTITY_PROPERTIES);
-   }
+        for (Property property : config.getProperties().values()) {
+            visitProperty(property);
+        }
 
-   @Override
-   public void visitDomain(Domain domain) {
-      m_path.down(ENTITY_DOMAIN);
+        m_path.up(ENTITY_PROPERTIES);
+    }
 
-      assertRequired(ATTR_ID, domain.getId());
+    @Override
+    public void visitDomain(Domain domain) {
+        m_path.down(ENTITY_DOMAIN);
 
-      m_path.up(ENTITY_DOMAIN);
-   }
+        assertRequired(ATTR_ID, domain.getId());
 
-   @Override
-   public void visitProperty(Property property) {
-      m_path.down(ENTITY_PROPERTY);
+        m_path.up(ENTITY_DOMAIN);
+    }
 
-      assertRequired(ATTR_NAME, property.getName());
+    @Override
+    public void visitProperty(Property property) {
+        m_path.down(ENTITY_PROPERTY);
 
-      m_path.up(ENTITY_PROPERTY);
-   }
+        assertRequired(ATTR_NAME, property.getName());
 
-   @Override
-   public void visitServer(Server server) {
-      m_path.down(ENTITY_SERVER);
+        m_path.up(ENTITY_PROPERTY);
+    }
 
-      assertRequired(ATTR_IP, server.getIp());
+    @Override
+    public void visitServer(Server server) {
+        m_path.down(ENTITY_SERVER);
 
-      m_path.up(ENTITY_SERVER);
-   }
+        assertRequired(ATTR_IP, server.getIp());
 
-   static class Path {
-      private Stack<String> m_sections = new Stack<String>();
+        m_path.up(ENTITY_SERVER);
+    }
 
-      public Path down(String nextSection) {
-         m_sections.push(nextSection);
+    static class Path {
+        private Stack<String> m_sections = new Stack<String>();
 
-         return this;
-      }
+        public Path down(String nextSection) {
+            m_sections.push(nextSection);
 
-      @Override
-      public String toString() {
-         StringBuilder sb = new StringBuilder();
+            return this;
+        }
 
-         for (String section : m_sections) {
-            sb.append('/').append(section);
-         }
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
 
-         return sb.toString();
-      }
+            for (String section : m_sections) {
+                sb.append('/').append(section);
+            }
 
-      public Path up(String currentSection) {
-         if (m_sections.isEmpty() || !m_sections.peek().equals(currentSection)) {
-            throw new RuntimeException("INTERNAL ERROR: stack mismatched!");
-         }
+            return sb.toString();
+        }
 
-         m_sections.pop();
-         return this;
-      }
-   }
+        public Path up(String currentSection) {
+            if (m_sections.isEmpty() || !m_sections.peek().equals(currentSection)) {
+                throw new RuntimeException("INTERNAL ERROR: stack mismatched!");
+            }
+
+            m_sections.pop();
+            return this;
+        }
+    }
 }

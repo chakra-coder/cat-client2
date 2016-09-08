@@ -9,20 +9,20 @@ import java.util.List;
 
 public interface ClientConfigManager {
 
-	public Domain getDomain();
+    public Domain getDomain();
 
-	public int getMaxMessageLength();
+    public int getMaxMessageLength();
 
-	public String getServerConfigUrl();
+    public String getServerConfigUrl();
 
-	public List<Server> getServers();
+    public List<Server> getServers();
 
-	public int getTaggedTransactionCacheSize();
+    public int getTaggedTransactionCacheSize();
 
-	public void initialize(File configFile) throws Exception;
+    public void initialize(File configFile) throws Exception;
 
-	public boolean isCatEnabled();
+    public boolean isCatEnabled();
 
-	public boolean isDumpLocked();
+    public boolean isDumpLocked();
 
 }

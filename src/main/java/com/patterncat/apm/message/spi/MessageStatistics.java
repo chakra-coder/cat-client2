@@ -1,14 +1,14 @@
 package com.patterncat.apm.message.spi;
 
 public interface MessageStatistics {
-	public long getBytes();
+    public long getBytes();
 
-	public long getOverflowed();
+    public long getOverflowed();
 
-	public long getProduced();
+    public long getProduced();
 
-	public void onBytes(int size);
+    public void onBytes(int size);
 
-	public void onOverflowed(MessageTree tree);
+    public void onOverflowed(MessageTree tree);
 
 }

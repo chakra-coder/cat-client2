@@ -35,7 +35,7 @@ public class Joiners {
         protected abstract void appendDelimiter(StringBuilder sb);
 
         public String join(Collection<String> list) {
-            return this.<String> join(list, null);
+            return this.<String>join(list, null);
         }
 
         public <T> String join(Collection<T> list, IBuilder<T> builder) {

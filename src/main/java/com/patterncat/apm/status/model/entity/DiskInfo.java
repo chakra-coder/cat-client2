@@ -7,80 +7,80 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiskInfo extends BaseEntity<DiskInfo> {
-   private List<DiskVolumeInfo> m_diskVolumes = new ArrayList<DiskVolumeInfo>();
+    private List<DiskVolumeInfo> m_diskVolumes = new ArrayList<DiskVolumeInfo>();
 
-   public DiskInfo() {
-   }
+    public DiskInfo() {
+    }
 
-   @Override
-   public void accept(IVisitor visitor) {
-      visitor.visitDisk(this);
-   }
+    @Override
+    public void accept(IVisitor visitor) {
+        visitor.visitDisk(this);
+    }
 
-   public DiskInfo addDiskVolume(DiskVolumeInfo diskVolume) {
-      m_diskVolumes.add(diskVolume);
-      return this;
-   }
+    public DiskInfo addDiskVolume(DiskVolumeInfo diskVolume) {
+        m_diskVolumes.add(diskVolume);
+        return this;
+    }
 
-   @Override
-   public boolean equals(Object obj) {
-      if (obj instanceof DiskInfo) {
-         DiskInfo _o = (DiskInfo) obj;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof DiskInfo) {
+            DiskInfo _o = (DiskInfo) obj;
 
-         if (!equals(m_diskVolumes, _o.getDiskVolumes())) {
-            return false;
-         }
+            if (!equals(m_diskVolumes, _o.getDiskVolumes())) {
+                return false;
+            }
 
 
-         return true;
-      }
+            return true;
+        }
 
-      return false;
-   }
+        return false;
+    }
 
-   public DiskVolumeInfo findDiskVolume(String id) {
-      for (DiskVolumeInfo diskVolume : m_diskVolumes) {
-         if (!equals(diskVolume.getId(), id)) {
-            continue;
-         }
+    public DiskVolumeInfo findDiskVolume(String id) {
+        for (DiskVolumeInfo diskVolume : m_diskVolumes) {
+            if (!equals(diskVolume.getId(), id)) {
+                continue;
+            }
 
-         return diskVolume;
-      }
+            return diskVolume;
+        }
 
-      return null;
-   }
+        return null;
+    }
 
-   public List<DiskVolumeInfo> getDiskVolumes() {
-      return m_diskVolumes;
-   }
+    public List<DiskVolumeInfo> getDiskVolumes() {
+        return m_diskVolumes;
+    }
 
-   @Override
-   public int hashCode() {
-      int hash = 0;
+    @Override
+    public int hashCode() {
+        int hash = 0;
 
-      hash = hash * 31 + (m_diskVolumes == null ? 0 : m_diskVolumes.hashCode());
+        hash = hash * 31 + (m_diskVolumes == null ? 0 : m_diskVolumes.hashCode());
 
-      return hash;
-   }
+        return hash;
+    }
 
-   @Override
-   public void mergeAttributes(DiskInfo other) {
-   }
+    @Override
+    public void mergeAttributes(DiskInfo other) {
+    }
 
-   public DiskVolumeInfo removeDiskVolume(String id) {
-      int len = m_diskVolumes.size();
+    public DiskVolumeInfo removeDiskVolume(String id) {
+        int len = m_diskVolumes.size();
 
-      for (int i = 0; i < len; i++) {
-         DiskVolumeInfo diskVolume = m_diskVolumes.get(i);
+        for (int i = 0; i < len; i++) {
+            DiskVolumeInfo diskVolume = m_diskVolumes.get(i);
 
-         if (!equals(diskVolume.getId(), id)) {
-            continue;
-         }
+            if (!equals(diskVolume.getId(), id)) {
+                continue;
+            }
 
-         return m_diskVolumes.remove(i);
-      }
+            return m_diskVolumes.remove(i);
+        }
 
-      return null;
-   }
+        return null;
+    }
 
 }

@@ -1,8 +1,8 @@
 package com.patterncat.apm.status.model;
 
 public interface IEntity<T> {
-   public void accept(IVisitor visitor);
+    public void accept(IVisitor visitor);
 
-   public void mergeAttributes(T other);
+    public void mergeAttributes(T other);
 
 }
