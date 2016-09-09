@@ -1,0 +1,16 @@
+cat:
+  mode: client
+  enabled: true
+  servers:
+    - ip: 192.168.99.100
+      port: 2280
+      httpPort: 2281
+      enabled: true
+#    - ip: 192.168.99.101
+#      port: 2281
+#      httpPort: 2281
+#      enabled: true
+  domain:
+      id: kaptcha ##app name
+      enabled: true
+  baseLogDir: target/catlog

@@ -19,7 +19,7 @@ public interface ClientConfigManager {
 
     public int getTaggedTransactionCacheSize();
 
-    public void initialize(File configFile) throws Exception;
+    public void initialize();
 
     public boolean isCatEnabled();
 
