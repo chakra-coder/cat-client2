@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.*;
 
@@ -172,6 +173,7 @@ public class DefaultMessageManager implements MessageManager {
         return m_context.get() != null;
     }
 
+    @PostConstruct
     public void initialize() {
         m_domain = m_configManager.getDomain();
         m_hostName = NetworkInterfaceManager.INSTANCE.getLocalHostName();
