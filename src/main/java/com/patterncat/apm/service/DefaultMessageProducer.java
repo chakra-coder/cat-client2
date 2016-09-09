@@ -31,7 +31,7 @@ public class DefaultMessageProducer implements MessageProducer {
 
     @Override
     public void logError(String message, Throwable cause) {
-        if (Cat.getManager().isCatEnabled()) {
+        if (m_manager.isCatEnabled()) {
             if (shouldLog(cause)) {
                 m_manager.getThreadLocalMessageTree().setSample(false);
 
@@ -66,8 +66,8 @@ public class DefaultMessageProducer implements MessageProducer {
 
     @Override
     public void logError(String message) {
-        if (Cat.getManager().isCatEnabled()) {
-            logEvent("Error","error without exception", "ERROR", message);
+        if (m_manager.isCatEnabled()) {
+            logEvent("Error","error", "ERROR", message);
         }
     }
 

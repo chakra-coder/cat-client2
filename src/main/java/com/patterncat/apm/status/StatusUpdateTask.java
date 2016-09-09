@@ -31,6 +31,9 @@ public class StatusUpdateTask implements Threads.Task {
     @Autowired
     private ClientConfigManager m_manager;
 
+    @Autowired
+    MessageProducer cat;
+
     private boolean m_active = true;
 
     private String m_ipAddress;
@@ -135,7 +138,7 @@ public class StatusUpdateTask implements Threads.Task {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        MessageProducer cat = Cat.getProducer();
+
         Transaction reboot = cat.newTransaction("System", "Reboot");
 
         reboot.setStatus(Message.SUCCESS);

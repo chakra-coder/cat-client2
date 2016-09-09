@@ -14,9 +14,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.locks.LockSupport;
 
 @Component
-public class CatClientModule {
+public class CatClientTask {
 
-    private static final Logger logger = LoggerFactory.getLogger(CatClientModule.class);
+    private static final Logger logger = LoggerFactory.getLogger(CatClientTask.class);
 
     public static final String ID = "cat-client";
 

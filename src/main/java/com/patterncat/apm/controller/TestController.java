@@ -1,9 +1,13 @@
 package com.patterncat.apm.controller;
 
+import com.patterncat.apm.message.Transaction;
+import com.patterncat.apm.service.Cat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Random;
 
 /**
  * Created by patterncat on 2016-09-09.
@@ -22,5 +26,18 @@ public class TestController {
             logger.error(e.getMessage(),e);
         }
         return "finish";
+    }
+
+    @RequestMapping("/t2")
+    public Object transaction(){
+        Transaction t = Cat.newTransaction("order", "order");
+        int nextInt = new Random().nextInt(3);
+        if (nextInt % 2 == 0) {
+            t.setStatus(Transaction.SUCCESS);
+        } else {
+            t.setStatus(String.valueOf(nextInt));
+        }
+        t.complete();
+        return "ok";
     }
 }

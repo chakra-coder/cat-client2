@@ -26,7 +26,7 @@ import java.util.Properties;
 public class DefaultClientConfigManager implements ClientConfigManager {
     private static final String CAT_CLIENT_XML = "META-INF/cat/client.xml";
 
-    private static final String PROPERTIES_CLIENT_XML = "/META-INF/app.properties";
+    private static final String PROPERTIES_CLIENT_XML = "META-INF/app.properties";
 
     private Logger logger = LoggerFactory.getLogger(DefaultClientConfigManager.class);
 
@@ -138,12 +138,12 @@ public class DefaultClientConfigManager implements ClientConfigManager {
             in = Thread.currentThread().getContextClassLoader().getResourceAsStream(CAT_CLIENT_XML);
 
             if (in == null) {
-                in = Cat.class.getResourceAsStream(CAT_CLIENT_XML);
+                in = this.getClass().getClassLoader().getResourceAsStream(CAT_CLIENT_XML);
             }
             if (in != null) {
                 String xml = Files.forIO().readFrom(in, "utf-8");
 
-                logger.info(String.format("Resource file(%s) found.", Cat.class.getResource(CAT_CLIENT_XML)));
+                logger.info(String.format("Resource file(%s) found.", this.getClass().getClassLoader().getResource(CAT_CLIENT_XML)));
                 return DefaultSaxParser.parse(xml);
             }
             return null;
@@ -167,7 +167,7 @@ public class DefaultClientConfigManager implements ClientConfigManager {
             in = Thread.currentThread().getContextClassLoader().getResourceAsStream(PROPERTIES_CLIENT_XML);
 
             if (in == null) {
-                in = Cat.class.getResourceAsStream(PROPERTIES_CLIENT_XML);
+                in = this.getClass().getClassLoader().getResourceAsStream(PROPERTIES_CLIENT_XML);
             }
             if (in != null) {
                 Properties prop = new Properties();

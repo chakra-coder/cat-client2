@@ -42,18 +42,18 @@ public class Cat {
     }
 
     public static MessageManager getManager() {
-        return ApplicationContextHolder.getContext().getBean(DefaultMessageManager.class);
+        return ApplicationContextHolder.getBean(DefaultMessageManager.class);
     }
 
     public static MessageProducer getProducer() {
-        return ApplicationContextHolder.getContext().getBean(DefaultMessageProducer.class);
+        return ApplicationContextHolder.getBean(DefaultMessageProducer.class);
     }
 
-    public static void log(String severity, String message) {
-        MessageFormat format = new MessageFormat("[{0,date,MM-dd HH:mm:ss.sss}] [{1}] [{2}] {3}");
-
-        System.out.println(format.format(new Object[]{new Date(), severity, "cat", message}));
-    }
+//    public static void log(String severity, String message) {
+//        MessageFormat format = new MessageFormat("[{0,date,MM-dd HH:mm:ss.sss}] [{1}] [{2}] {3}");
+//
+//        System.out.println(format.format(new Object[]{new Date(), severity, "cat", message}));
+//    }
 
     public static void logError(String message, Throwable cause) {
         Cat.getProducer().logError(message, cause);
@@ -218,7 +218,7 @@ public class Cat {
     }
 
     public static boolean isInitialized() {
-        return false;
+        return true;
     }
 
     public static interface Context {

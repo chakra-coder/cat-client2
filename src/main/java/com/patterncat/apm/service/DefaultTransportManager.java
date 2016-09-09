@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class DefaultTransportManager implements TransportManager {
         return m_tcpSocketSender;
     }
 
+    @PostConstruct
     public void initialize() {
         List<Server> servers = m_configManager.getServers();
 

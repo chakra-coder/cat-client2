@@ -1,6 +1,7 @@
 package com.patterncat.apm.log4j2;
 
 import com.patterncat.apm.message.Trace;
+import com.patterncat.apm.message.spi.MessageManager;
 import com.patterncat.apm.service.Cat;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Filter;
@@ -29,7 +30,11 @@ public class CatLog4j2Appender extends AbstractAppender {
 
     @Override
     public void append(LogEvent event) {
-        boolean isTraceMode = Cat.getManager().isTraceMode();
+        MessageManager messageManager = Cat.getManager();
+        if(messageManager == null){
+            return ;
+        }
+        boolean isTraceMode = messageManager.isTraceMode();
         Level level = event.getLevel();
 
         if (level.isMoreSpecificThan(Level.ERROR)) {

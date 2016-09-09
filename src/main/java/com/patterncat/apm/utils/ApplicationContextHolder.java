@@ -13,8 +13,11 @@ public class ApplicationContextHolder implements ApplicationContextAware {
 
     private static ApplicationContext ctx;
 
-    public static ApplicationContext getContext() {
-        return ctx;
+    public static <T> T getBean(Class<T> clz){
+        if(ctx == null){
+            return null;
+        }
+        return ctx.getBean(clz);
     }
 
 
