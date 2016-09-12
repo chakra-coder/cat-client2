@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Created by gf.crm on 2016-09-12.
+ * Created by patterncat on 2016-09-12.
  */
 @Configuration
 @ConditionalOnProperty(name = "apm.enabled",havingValue = "true",matchIfMissing = false)
