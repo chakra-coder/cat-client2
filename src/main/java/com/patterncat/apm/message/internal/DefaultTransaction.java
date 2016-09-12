@@ -4,7 +4,7 @@ package com.patterncat.apm.message.internal;
 import com.patterncat.apm.message.Message;
 import com.patterncat.apm.message.Transaction;
 import com.patterncat.apm.message.spi.MessageManager;
-import com.patterncat.apm.service.Cat;
+import com.patterncat.apm.Cat;
 
 import java.util.ArrayList;
 import java.util.Collections;

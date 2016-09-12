@@ -8,7 +8,7 @@ import com.patterncat.apm.message.MessageProducer;
 import com.patterncat.apm.message.Transaction;
 import com.patterncat.apm.message.internal.DefaultTransaction;
 import com.patterncat.apm.message.spi.MessageTree;
-import com.patterncat.apm.service.Cat;
+import com.patterncat.apm.Cat;
 import com.patterncat.apm.service.DefaultMessageManager;
 import com.patterncat.apm.utils.Joiners;
 import com.patterncat.apm.utils.NetworkInterfaceManager;

@@ -1,19 +1,16 @@
-package com.patterncat.apm;
+package com.patterncat.apm.service;
 
 import com.patterncat.apm.config.ClientConfigManager;
 import com.patterncat.apm.message.internal.MilliSecondTimer;
-import com.patterncat.apm.status.StatusUpdateTask;
 import com.patterncat.apm.utils.Threads;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.locks.LockSupport;
 
-@Component
 public class CatClientTask {
 
     private static final Logger logger = LoggerFactory.getLogger(CatClientTask.class);

@@ -1,15 +1,13 @@
-package com.patterncat.apm.utils;
+package com.patterncat.apm.service;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by patterncat on 2016-09-08.
  */
-@Component
-public class ApplicationContextHolder implements ApplicationContextAware {
+public class ApmApplicationContextHolder implements ApplicationContextAware {
 
     private static ApplicationContext ctx;
 

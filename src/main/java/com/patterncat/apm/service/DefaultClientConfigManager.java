@@ -9,14 +9,12 @@ import com.patterncat.apm.utils.NetworkInterfaceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-@Component
 public class DefaultClientConfigManager implements ClientConfigManager {
 
     private Logger logger = LoggerFactory.getLogger(DefaultClientConfigManager.class);

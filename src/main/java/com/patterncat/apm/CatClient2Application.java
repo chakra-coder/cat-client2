@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @SpringBootApplication
 //@ConditionalOnProperty(value = "cat")
-@EnableConfigurationProperties(CatSpringProperties.class)
+//@EnableConfigurationProperties(CatSpringProperties.class)
 public class CatClient2Application {
 
     public static void main(String[] args) {

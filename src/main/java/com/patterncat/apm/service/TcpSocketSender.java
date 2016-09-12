@@ -20,13 +20,11 @@ import io.netty.channel.ChannelFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.net.InetSocketAddress;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Component
 public class TcpSocketSender implements Threads.Task, MessageSender {
     public static final String ID = "tcp-socket-sender";
 

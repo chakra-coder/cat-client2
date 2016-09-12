@@ -4,7 +4,7 @@ package com.patterncat.apm.message.internal;
 import com.patterncat.apm.message.ForkedTransaction;
 import com.patterncat.apm.message.spi.MessageManager;
 import com.patterncat.apm.message.spi.MessageTree;
-import com.patterncat.apm.service.Cat;
+import com.patterncat.apm.Cat;
 
 public class DefaultForkedTransaction extends DefaultTransaction implements ForkedTransaction {
     private String m_rootMessageId;

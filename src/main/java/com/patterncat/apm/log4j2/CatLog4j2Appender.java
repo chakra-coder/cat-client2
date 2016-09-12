@@ -2,7 +2,7 @@ package com.patterncat.apm.log4j2;
 
 import com.patterncat.apm.message.Trace;
 import com.patterncat.apm.message.spi.MessageManager;
-import com.patterncat.apm.service.Cat;
+import com.patterncat.apm.Cat;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Filter;
 import org.apache.logging.log4j.core.Layout;

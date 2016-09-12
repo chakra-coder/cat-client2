@@ -2,9 +2,7 @@ package com.patterncat.apm.service;
 
 import com.patterncat.apm.message.spi.MessageStatistics;
 import com.patterncat.apm.message.spi.MessageTree;
-import org.springframework.stereotype.Component;
 
-@Component
 public class DefaultMessageStatistics implements MessageStatistics {
     private long m_produced;
 

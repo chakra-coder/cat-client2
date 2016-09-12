@@ -1,15 +1,13 @@
-package com.patterncat.apm.service;
+package com.patterncat.apm;
 
 import com.google.common.io.Resources;
-import com.patterncat.apm.CatConstants;
 import com.patterncat.apm.message.*;
 import com.patterncat.apm.message.spi.MessageManager;
 import com.patterncat.apm.message.spi.MessageTree;
-import com.patterncat.apm.utils.ApplicationContextHolder;
+import com.patterncat.apm.service.DefaultMessageManager;
+import com.patterncat.apm.service.DefaultMessageProducer;
+import com.patterncat.apm.service.ApmApplicationContextHolder;
 import com.patterncat.apm.utils.Properties;
-
-import java.text.MessageFormat;
-import java.util.Date;
 
 /**
  * This is the main entry point to the system.
@@ -42,11 +40,11 @@ public class Cat {
     }
 
     public static MessageManager getManager() {
-        return ApplicationContextHolder.getBean(DefaultMessageManager.class);
+        return ApmApplicationContextHolder.getBean(DefaultMessageManager.class);
     }
 
     public static MessageProducer getProducer() {
-        return ApplicationContextHolder.getBean(DefaultMessageProducer.class);
+        return ApmApplicationContextHolder.getBean(DefaultMessageProducer.class);
     }
 
 //    public static void log(String severity, String message) {

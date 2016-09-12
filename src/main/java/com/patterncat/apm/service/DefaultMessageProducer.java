@@ -6,12 +6,10 @@ import com.patterncat.apm.message.internal.*;
 import com.patterncat.apm.message.spi.MessageManager;
 import com.patterncat.apm.message.spi.MessageTree;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-@Component
 public class DefaultMessageProducer implements MessageProducer {
     @Autowired
     private MessageManager m_manager;

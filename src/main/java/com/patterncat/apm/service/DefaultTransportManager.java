@@ -7,14 +7,12 @@ import com.patterncat.apm.message.io.TransportManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class DefaultTransportManager implements TransportManager {
 
     @Autowired

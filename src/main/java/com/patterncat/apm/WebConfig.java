@@ -1,6 +1,7 @@
 package com.patterncat.apm;
 
 import com.patterncat.apm.servlet.CatFilter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,7 @@ import org.springframework.web.filter.RequestContextFilter;
  * Created by patterncat on 2016-09-09.
  */
 @Configuration
+@ConditionalOnProperty(name = "apm.enabled",havingValue = "true",matchIfMissing = false)
 public class WebConfig {
 
     @Bean

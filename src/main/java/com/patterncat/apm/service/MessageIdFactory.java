@@ -4,7 +4,6 @@ package com.patterncat.apm.service;
 import com.patterncat.apm.message.internal.MilliSecondTimer;
 import com.patterncat.apm.utils.NetworkInterfaceManager;
 import com.patterncat.apm.utils.Splitters;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +15,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Component
 public class MessageIdFactory {
     private volatile long m_timestamp = getTimestamp();
 

@@ -1,4 +1,4 @@
-package com.patterncat.apm.status;
+package com.patterncat.apm.service;
 
 import com.patterncat.apm.config.ClientConfigManager;
 import com.patterncat.apm.message.Heartbeat;
@@ -7,13 +7,15 @@ import com.patterncat.apm.message.MessageProducer;
 import com.patterncat.apm.message.Transaction;
 import com.patterncat.apm.message.internal.MilliSecondTimer;
 import com.patterncat.apm.message.spi.MessageStatistics;
-import com.patterncat.apm.service.Cat;
+import com.patterncat.apm.Cat;
+import com.patterncat.apm.status.StatusExtension;
+import com.patterncat.apm.status.StatusExtensionRegister;
+import com.patterncat.apm.status.StatusInfoCollector;
 import com.patterncat.apm.status.model.entity.Extension;
 import com.patterncat.apm.status.model.entity.StatusInfo;
 import com.patterncat.apm.utils.NetworkInterfaceManager;
 import com.patterncat.apm.utils.Threads;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -22,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-@Component
 public class StatusUpdateTask implements Threads.Task {
 
     @Autowired

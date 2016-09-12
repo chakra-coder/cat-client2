@@ -1,5 +1,6 @@
 package com.patterncat.apm.service;
 
+import com.patterncat.apm.Cat;
 import com.patterncat.apm.config.ClientConfigManager;
 import com.patterncat.apm.config.client.entity.Domain;
 import com.patterncat.apm.message.ForkedTransaction;
@@ -19,13 +20,11 @@ import com.patterncat.apm.utils.NetworkInterfaceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.*;
 
-@Component
 public class DefaultMessageManager implements MessageManager {
 
     @Autowired

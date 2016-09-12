@@ -10,7 +10,6 @@ import com.patterncat.apm.message.spi.internal.DefaultMessageTree;
 import io.netty.buffer.ByteBuf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
@@ -21,7 +20,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Component
 public class PlainTextMessageCodec implements MessageCodec {
     public static final String ID = "plain-text";
 

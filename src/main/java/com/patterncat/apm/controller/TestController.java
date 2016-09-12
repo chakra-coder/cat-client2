@@ -1,7 +1,7 @@
 package com.patterncat.apm.controller;
 
 import com.patterncat.apm.message.Transaction;
-import com.patterncat.apm.service.Cat;
+import com.patterncat.apm.Cat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
